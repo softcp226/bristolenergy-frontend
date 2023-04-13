@@ -103,7 +103,7 @@ document.querySelector("#delete_btn").onclick = () => {
 };
 
 const submit_deposit_approval = async (form) => {
-  document.querySelector("#delete_btn").innerHTML = "processing...";
+  document.querySelector("#add_fund").innerHTML = "processing...";
   try {
     const response = await fetch(
       "https://bristolenergy.glitch.me/api/admin/deposit/approve",
@@ -117,14 +117,14 @@ const submit_deposit_approval = async (form) => {
     console.log(result);
     if (result.error) {
       document.querySelector(".errMessage").innerHTML = result.errMessage;
-      document.querySelector("#delete_btn").innerHTML = "Try again";
+      document.querySelector("#add_fund").innerHTML = "Try again";
       return;
     }
-    document.querySelector("#delete_btn").innerHTML = "success";
+    document.querySelector("#add_fund").innerHTML = "success";
     window.location.href = "/admin/pending-deposit.html";
   } catch (err) {
     document.querySelector(".errMessage").innerHTML = err.message;
-    document.querySelector("#delete_btn").innerHTML = "Try again";
+    document.querySelector("#add_fund").innerHTML = "Try again";
     console.log(err);
   }
 };

@@ -15,36 +15,36 @@ const get_adminInfo = (cname) => {
   // return "";
   window.location.href = "/admin";
 };
-const select_element=(id,innerText)=>{
-return document.querySelector(`#${id}`).innerHTML=innerText
-}
+const select_element = (id, innerText) => {
+  return (document.querySelector(`#${id}`).innerHTML = innerText);
+};
 const create_element = (data) => {
-    document.querySelector("#user_length").innerHTML=data.user_length;
-    document.querySelector(
-      "#active_user_length",
-    ).innerHTML = `${data.active_users.length} ${data.active_users.percentage}`;
-// document.querySelector("#suspended_users_length").innerHTML;
-select_element(
-  "suspended_users_length",
-  `${data.suspended_users.length} ${data.suspended_users.percentage}`,
-);
-select_element(
-  "disabled_users_length",
-  `${data.disabled_users.length} ${data.disabled_users.percentage}`,
-);
+  document.querySelector("#user_length").innerHTML = data.user_length;
+  document.querySelector(
+    "#active_user_length",
+  ).innerHTML = `${data.active_users.length} ${data.active_users.percentage}`;
+  // document.querySelector("#suspended_users_length").innerHTML;
+  select_element(
+    "suspended_users_length",
+    `${data.suspended_users.length} ${data.suspended_users.percentage}`,
+  );
+  select_element(
+    "disabled_users_length",
+    `${data.disabled_users.length} ${data.disabled_users.percentage}`,
+  );
 
-select_element(
-  "users_that_ever_madedeposit",
-  `${data.users_ever_madedeposit.length} ${data.users_ever_madedeposit.percentage} `,
-);
-select_element(
-  "users_that_never_madedeposit",
-  `${data.users_that_never_madedeposit.length} 
+  select_element(
+    "users_that_ever_madedeposit",
+    `${data.users_ever_madedeposit.length} ${data.users_ever_madedeposit.percentage} `,
+  );
+  select_element(
+    "users_that_never_madedeposit",
+    `${data.users_that_never_madedeposit.length} 
   ${data.users_that_never_madedeposit.percentage}`,
-);
-select_element("investment_package", `${data.investment_packages.length}`);
-select_element("withdrawal_request",`${data.withdrawal_request.length}`);
-select_element("pending_deposit", `${data.pending_deposit.length}`);
+  );
+  select_element("investment_package", `${data.investment_packages.length}`);
+  select_element("withdrawal_request", `${data.withdrawal_request.length}`);
+  select_element("pending_deposit", `${data.pending_deposit.length}`);
 };
 
 (async () => {
@@ -52,6 +52,7 @@ select_element("pending_deposit", `${data.pending_deposit.length}`);
   let token = get_adminInfo("admin_token");
 
   try {
+    console.log("called");
     const response = await fetch(
       "https://bristolenergy.glitch.me/api/admin/dashboard/details",
       // "http://localhost:5000/api/admin/dashboard/details",
@@ -62,14 +63,16 @@ select_element("pending_deposit", `${data.pending_deposit.length}`);
         body: JSON.stringify({ admin, token }),
       },
     );
+    console.log("result returned");
     const result = await response.json();
-    console.log(result)
+    console.log(result);
     if (result.error) {
-      alert(error.message);
-    }else{
-        create_element(result.message);
+      alert(result.errMessage);
+    } else {
+      create_element(result.message);
     }
   } catch (error) {
-   console.log(error);
+    console.log("caught an error")
+    console.log(error);
   }
 })();

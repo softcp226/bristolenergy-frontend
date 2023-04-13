@@ -20,7 +20,7 @@ construct_row_number=()=>row_number ==1 ?++row_number : --row_number
 
 const create_element = (data) => {
   data.forEach((element) => {
-    console.log(element.user.username)
+    console.log(element.user)
     const container_tr = document.createElement("tr");
     const user_name_td = document.createElement("td");
     let amount_td=document.createElement("td")
@@ -36,9 +36,8 @@ const create_element = (data) => {
     let idTxt = document.createElement("td");
 const date_td=document.createElement("td")
     container_tr.className = `row${construct_row_number()}`;
-    user_name_b.innerHTML = element.user.username || "Unspecified";
-    small.innerHTML =
-      element.user.full_name || "unspecified";
+    user_name_b.innerHTML =element.user? element.user.username : "Unspecified";
+    small.innerHTML = element.user?element.user.full_name : "unspecified";
 date_td.innerHTML=element.date||"Unspecified at the moment"
     plan.innerHTML = "--";
     amount_td.innerHTML = `$${element.deposit_amount}`;
@@ -87,6 +86,7 @@ container_tr.append(date_td)
       create_element(result.message);
     }
   } catch (error) {
-   document.querySelector("#errMessage").innerHTML = result.errMessage;
+    console.log(error)
+   document.querySelector("#errMessage").innerHTML = error.message;
   }
 })();
